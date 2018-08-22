@@ -1,0 +1,15 @@
+{
+  "name": "postman-newman",
+  "version": "1.0.0",
+  "description": "Project for storing tests",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "api-test-production": "newman run tests/trello.postman_collection.json"
+  },
+  "author": "Irina",
+  "dependencies": {
+    "newman": "^4.0.2"
+  }
+}

@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "c2fc120a-b1db-4fda-a2bf-bac65decfd8d",
+		"name": "trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://api.trello.com/1/boards/?name=My new name2&key=296c48903b0b7fd088aae3444a3a0325&token=74225328bc01bf0a417918a9ef42f6f64e0df9b0f72d8512d4a004716370fee2&defaultLists=false",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccc10e49-a348-416f-ae8e-1aaaf63bcfd4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var boardName2 = pm.environment.get('boardName');",
+							"",
+							"pm.test(\"Board name should be \"+boardName2, function () {",
+							"    pm.expect(jsonData.name).to.eql(boardName2);",
+							"});",
+							"",
+							"",
+							"{",
+							"var boardName2 = \"\";    ",
+							"}",
+							"",
+							"",
+							"pm.globals.set(\"BoardId\",jsonData.id);",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b6cae967-d71a-4a09-bb8d-097da0f07cc0",
+						"type": "text/javascript",
+						"exec": [
+							"var BoardName = \"My board\"+ parseInt(Math.random()*10000);",
+							"",
+							"pm.environment.set(\"boardName\", BoardName);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/?name={{boardName}}&key={{trelloKey}}&token={{trelloToken}}&defaultLists=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{trelloKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{trelloToken}}"
+						},
+						{
+							"key": "defaultLists",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add list.",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.trello.com/1/lists?name=name7&idBoard={{BoardId}}&key={{trelloKey}}&token={{trelloToken}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "name7"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{BoardId}}"
+						},
+						{
+							"key": "key",
+							"value": "{{trelloKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{trelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
